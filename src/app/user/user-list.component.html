@@ -1,0 +1,164 @@
+<style type="text/css">
+.hm {
+  background-image: url('assets/files/list.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 85px;
+}
+
+.img {
+        width: 45px;
+        height: 45px;
+        /* border-radius: 50%; */
+        object-fit: cover;
+}
+
+
+.text {
+  text-align: center;
+}
+</style>
+
+<div class="hm pb-5">
+
+  <!-- List has data -->
+  <ng-container *ngIf="form.list.length > 0">
+
+    <div align="center">
+      <h1 style="color: #2F4156;"><b>User List</b></h1>
+    </div>
+
+    <!-- Success Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div *ngIf="!form.error && form.message" class="col-md-4 alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><font color="#008000">{{ form.message }}</font></h4>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div *ngIf="form.error && form.message" class="col-md-4 alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><font color="red">{{ form.message }}</font></h4>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-2">
+        <input type="text" name="firstName" [(ngModel)]="form.searchParams.firstName"
+          placeholder="Enter FirstName" class="form-control">
+      </div>
+      &emsp;
+      <div class="col-sm-2">
+        <input type="text" name="login" [(ngModel)]="form.searchParams.login"
+          placeholder="Enter Login Id" class="form-control">
+      </div>
+      &emsp;
+      <div class="col-sm-3">
+        <select name="roleId" [(ngModel)]="form.searchParams.roleId" class="form-control">
+          <option value="undefined">------------Select------------</option>
+          <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{ obj.value }}</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <input type="submit" (click)="search()" class="btn btn-primary btn-md" style="font-size: 15px" value="Search">
+        &nbsp;
+        <input type="submit" (click)="reset()" class="btn btn-dark btn-md" style="font-size: 15px" value="Reset">
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <br>
+
+    <!-- Table -->
+    <div style="margin-bottom: 20px;" class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr style="background-color: #8C8C8C;">
+            <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)" /></th>
+            <th class="text">S.NO</th>
+            <th>profile</th>
+            <th width="15%" class="text">FirstName</th>
+            <th width="15%" class="text">LastName</th>
+            <th width="20%" class="text">LoginId</th>
+            <th width="10%" class="text">Gender</th>
+            <th width="10%" class="text">Role</th>
+            <th width="10%" class="text">DOB</th>
+            <th width="5%" class="text">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of form.list; let i = index">
+           <td><input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id" [value]="isMasterSel">
+                </td>
+            <td class="text">{{ (form.pageNo * 5) + i + 1 }}</td>
+            <td *ngIf="m.imageId"><img height="50px" src="http://localhost:8080/User/profilePic/{{m.id}}" class="img"></td>
+        <td *ngIf="!m.imageId"><img height="50px" src="https://img.freepik.com/premium-vector/user-profile-icon-flat-style-member-avatar-vector-illustration-isolated-background-human-permission-sign-business-concept_157943-15752.jpg?semt=ais_user_personalization&w=740&q=80" class="img"></td>
+            <td class="text">{{ m.firstName }}</td>
+            <td class="text">{{ m.lastName }}</td>
+            <td class="text">{{ m.login }}</td>
+            <td class="text">{{ m.gender }}</td>
+            <td class="text">{{ m.roleName }}</td>
+            <td class="text">{{ m.dob | date:'dd-MM-yyyy' }}</td>
+            <td class="text"><a (click)="forward('/user/' + m.id)" style="cursor: pointer;">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination & Action Buttons -->
+    <table width="100%">
+      <tr>
+        <td>
+          <input type="submit" (click)="previous()" class="btn btn-warning btn-md" style="font-size: 17px" value="Previous" [disabled]="form.pageNo == 0">
+        </td>
+        <td>
+          <input type="submit" (click)="forward('/user')" class="btn btn-primary btn-md" style="font-size: 17px" value="New">
+        </td>
+        <td>
+          <input type="submit" (click)="deleteMany()" class="btn btn-danger btn-md" style="font-size: 17px" value="Delete">
+        </td>
+        <td align="right">
+          <input type="submit" (click)="next()" class="btn btn-warning btn-md" style="font-size: 17px" value="Next" [disabled]="form.nextListSize == 0">
+        </td>
+      </tr>
+    </table>
+
+  </ng-container>
+
+  <!-- List is empty -->
+  <ng-container *ngIf="form.list.length == 0">
+
+    <div align="center">
+      <h1 style="font-size: 40px; color: #162390;">User List</h1>
+    </div>
+
+    <br>
+
+    <!-- Error Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div *ngIf="form.error && form.message" class="col-md-4 alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><font color="red">{{ form.message }}</font></h4>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <br>
+
+    <div style="padding-left: 48%;">
+      <input type="submit" (click)="reset()" class="btn btn-primary btn-md" style="font-size: 17px" value="Back">
+    </div>
+
+  </ng-container>
+
+</div>

@@ -1,0 +1,148 @@
+<style type="text/css">
+   .input-group-addon {
+    box-shadow: 5px 5px 5px #2F4156;
+  }
+
+  .hm {
+    background-image: url('assets/files/login.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 75px;
+    padding-bottom: 75px;
+  }
+</style>
+
+<div class="hm">
+  <main>
+    <div class="row pt-3">
+
+      <div class="col-md-4 mb-4"></div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card input-group-addon">
+          <div class="card-body">
+
+            <h3 class="text-center default-text text-dark">{{ 'UserRegistration' | translate }}</h3>
+
+            <div>
+              <H4 align="center">
+                <div *ngIf="!form.error && form.message" class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ form.message }}
+                </div>
+              </H4>
+              <H4 align="center">
+                <div *ngIf="form.error && form.message" class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ form.message }}
+                </div>
+              </H4>
+            </div>
+
+            <div class="md-form">
+
+              <!-- First Name -->
+              <span class="pl-sm-5"><b>{{ 'FirstName' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-user grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="text" class="form-control" name="firstName" [(ngModel)]="form.data.firstName" placeholder="Enter First Name">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.firstName }}</font><br>
+
+              <!-- Last Name -->
+              <span class="pl-sm-5"><b>{{ 'LastName' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-user-circle grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="text" class="form-control" name="lastName" [(ngModel)]="form.data.lastName" placeholder="Enter Last Name">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.lastName }}</font><br>
+
+              <!-- Login ID -->
+              <span class="pl-sm-5"><b>{{ 'LoginId' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-envelope grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="text" class="form-control" name="login" [(ngModel)]="form.data.login" placeholder="Enter Login ID">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.login }}</font><br>
+
+              <!-- Password -->
+              <span class="pl-sm-5"><b>{{ 'Password' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-key grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="password" class="form-control" name="password" [(ngModel)]="form.data.password" placeholder="Enter Password">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.password }}</font><br>
+
+              <!-- Date of Birth -->
+              <span class="pl-sm-5"><b>{{ 'DateOfBirth' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-calendar grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="date" class="form-control" name="dob" [(ngModel)]="form.data.dob" placeholder="Select Date of Birth">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.dob }}</font><br>
+
+              <!-- Gender -->
+              <span class="pl-sm-5"><b>{{ 'Gender' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-venus-mars grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <select name="gender" [(ngModel)]="form.data.gender" class="form-control">
+                    <option value="undefined">{{ 'GenderOptions.Select' | translate }}</option>
+                    <option value="Male">{{ 'GenderOptions.Male' | translate }}</option>
+                    <option value="Female">{{ 'GenderOptions.Female' | translate }}</option>
+                  </select>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.gender }}</font><br>
+
+              <!-- Mobile -->
+              <span class="pl-sm-5"><b>{{ 'Mobile' | translate }}</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-phone-square grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="text" class="form-control" name="phone" [(ngModel)]="form.data.phone" maxlength="10" placeholder="Enter Mobile No.">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.phone }}</font><br>
+
+              <!-- Buttons -->
+              <div class="text-center">
+                <input type="submit" (click)="signUp()" class="btn btn-success btn-md" style="font-size: 17px" value="{{ 'Buttons.SignUp' | translate }}">&nbsp;
+                <input type="submit" (click)="reset()" class="btn btn-warning btn-md" style="font-size: 17px" value="{{ 'Buttons.Reset' | translate }}">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4"></div>
+
+    </div>
+  </main>
+</div>

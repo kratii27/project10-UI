@@ -1,0 +1,158 @@
+<style type="text/css">
+  .input-group-addon {
+    box-shadow: 9px 8px 7px #001a33;
+  }
+
+  .hm {
+    background-image: url('assets/files/add.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 75px;
+    padding-bottom: 25px;
+  }
+</style>
+
+<div class="hm">
+  <main>
+    <div class="row pt-3">
+
+      <div class="col-md-4 mb-4"></div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card input-group-addon">
+          <div class="card-body">
+
+            <h3 *ngIf="!form.data.id" class="text-center default-text text-dark">ADD TIMETABLE</h3>
+            <h3 *ngIf="form.data.id > 0" class="text-center default-text text-dark">UPDATE TIMETABLE</h3>
+
+            <div>
+              <H4 align="center">
+                <div *ngIf="!form.error && form.message" class="alert alert-success alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ form.message }}
+                </div>
+              </H4>
+              <H4 align="center">
+                <div *ngIf="form.error && form.message" class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  {{ form.message }}
+                </div>
+              </H4>
+            </div>
+
+            <div class="md-form">
+
+              <!-- Course -->
+              <span class="pl-sm-5"><b>Course</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-book grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <select name="courseId" [(ngModel)]="form.data.courseId" class="form-control">
+                    <option value="undefined">------------Select------------</option>
+                    <option *ngFor="let obj of form.preload.courseList" [value]="obj.key">{{ obj.value }}</option>
+                  </select>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.courseId }}</font><br>
+
+              <!-- Subject -->
+              <span class="pl-sm-5"><b>Subject</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-list-alt grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <select name="subjectId" [(ngModel)]="form.data.subjectId" class="form-control">
+                    <option value="undefined">------------Select------------</option>
+                    <option *ngFor="let obj of form.preload.subjectList" [value]="obj.key">{{ obj.value }}</option>
+                  </select>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.subjectId }}</font><br>
+
+              <!-- Semester -->
+              <span class="pl-sm-5"><b>Semester</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-sort-numeric-asc grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <select name="semester" [(ngModel)]="form.data.semester" class="form-control">
+                    <option value="undefined">------------Select------------</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                  </select>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.semester }}</font><br>
+
+              <!-- Exam Date -->
+              <span class="pl-sm-5"><b>Exam Date</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-calendar grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <input type="date" class="form-control" name="examDate" [(ngModel)]="form.data.examDate" [ngModel]="form.data.examDate | date:'yyyy-MM-dd'" placeholder="Select Exam Date">
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.examDate }}</font><br>
+
+              <!-- Exam Time -->
+              <span class="pl-sm-5"><b>Exam Time</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-clock-o grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <select name="examTime" [(ngModel)]="form.data.examTime" class="form-control">
+                    <option value="undefined">------------Select------------</option>
+                    <option value="08:00 AM to 11:00 AM">08:00 AM to 11:00 AM</option>
+                    <option value="12:00 PM to 03:00 PM">12:00 PM to 03:00 PM</option>
+                    <option value="04:00 PM to 07:00 PM">04:00 PM to 07:00 PM</option>
+                  </select>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.examTime }}</font><br>
+
+              <!-- Description -->
+              <span class="pl-sm-5"><b>Description</b> <span style="color: red;">*</span></span><br>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-align-left grey-text" style="font-size: 1rem;"></i></div>
+                  </div>
+                  <textarea class="form-control" name="description" [(ngModel)]="form.data.description" rows="3" placeholder="Enter Short description" style="resize: none;"></textarea>
+                </div>
+              </div>
+              <font color="red" class="pl-sm-5">{{ form.inputerror.description }}</font><br>
+
+              <!-- Buttons -->
+              <div *ngIf="!form.data.id" class="text-center">
+                <input type="submit" (click)="submit()" class="btn btn-success btn-md" style="font-size: 17px" value="Save">&nbsp;
+                <input type="submit" (click)="reset()" class="btn btn-warning btn-md" style="font-size: 17px" value="Reset">
+              </div>
+              <div *ngIf="form.data.id > 0" class="text-center">
+                <input type="submit" (click)="submit()" class="btn btn-success btn-md" style="font-size: 17px" value="Update">&nbsp;
+                <input type="submit" (click)="forward('timetablelist')" class="btn btn-warning btn-md" style="font-size: 17px" value="List">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4"></div>
+
+    </div>
+  </main>
+</div>
