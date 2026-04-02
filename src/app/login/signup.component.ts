@@ -28,6 +28,7 @@ export class SignupComponent {
       _self.form.inputerror = {};
 
       if (res.result.message) {
+        _self.form.error = false;
         _self.form.message = res.result.message;
       }
 
