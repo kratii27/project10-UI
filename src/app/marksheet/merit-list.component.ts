@@ -66,7 +66,7 @@ export class MeritListComponent extends BaseListCtl{
 
   // Open Jasper report
   openMeritReport() {
-    window.open("http://localhost:8080/Jasper/report", "_blank");
+    window.open("http://localhost:8081/Jasper/report", "_blank");
   }
 
 }
